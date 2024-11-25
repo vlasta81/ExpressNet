@@ -11,11 +11,11 @@ ExpressNet je jednoduchý webový framework pro .NET 9, který umožňuje snadn�
 
 ## Stažení
 
-Aktuální knihovna ke stažení zde: **DOWNLOAD**
+Aktuální knihovna ke stažení zde: **[DOWNLOAD](https://github.com/vlasta81/ExpressNet/blob/master/ExpressNet/README-EN.md)**
 
 ## Instalace
 
-Ve Visual Studiu přidejte referenci na dll knihovnu **blabla.dll** nebo si zkompilujte vlastní.
+Ve Visual Studiu přidejte referenci na dll knihovnu **ExpressNet.dll** nebo si zkompilujte vlastní.
    
 ## Použití
 

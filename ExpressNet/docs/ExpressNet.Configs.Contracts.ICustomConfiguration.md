@@ -11,5 +11,5 @@ public interface ICustomConfiguration
 
 | Methods | |
 | :--- | :--- |
-| [Exists&lt;TType&gt;(string)](ExpressNet.Configs.Contracts.ICustomConfiguration.Exists_TType_(string).md 'ExpressNet.Configs.Contracts.ICustomConfiguration.Exists<TType>(string)') | Checks if a value associated with the specified key exists. |
+| [Exists(string)](ExpressNet.Configs.Contracts.ICustomConfiguration.Exists(string).md 'ExpressNet.Configs.Contracts.ICustomConfiguration.Exists(string)') | Checks if a value associated with the specified key exists. |
 | [Get&lt;TType&gt;(string)](ExpressNet.Configs.Contracts.ICustomConfiguration.Get_TType_(string).md 'ExpressNet.Configs.Contracts.ICustomConfiguration.Get<TType>(string)') | Retrieves the value associated with the specified key and converts it to the specified type. |
