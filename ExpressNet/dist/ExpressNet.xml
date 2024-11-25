@@ -1,0 +1,1375 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ExpressNet</name>
+    </assembly>
+    <members>
+        <member name="T:ExpressNet.Application">
+            <summary>
+            Represents the main application class responsible for configuring and running the server.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Application.#ctor(System.Action{ExpressNet.Configs.Configurator})">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressNet.Application"/> class with the specified configuration action.
+            </summary>
+            <param name="configure">The action to configure the application.</param>
+        </member>
+        <member name="M:ExpressNet.Application.Register``1(System.Func{ExpressNet.Di.Services,``0},ExpressNet.Di.ServiceLifetime)">
+            <summary>
+            Registers a service with the specified factory method and lifetime.
+            </summary>
+            <typeparam name="TService">The type of the service to register.</typeparam>
+            <param name="factory">The factory method used to create the service instance.</param>
+            <param name="lifetime">The lifetime of the service.</param>
+        </member>
+        <member name="M:ExpressNet.Application.Use``1">
+            <summary>
+            Adds a middleware to the pipeline.
+            </summary>
+            <typeparam name="TMiddleware">The type of the middleware to add.</typeparam>
+        </member>
+        <member name="M:ExpressNet.Application.Add``1">
+            <summary>
+            Adds an endpoint to the router.
+            </summary>
+            <typeparam name="TEndpoint">The type of the endpoint to add.</typeparam>
+        </member>
+        <member name="M:ExpressNet.Application.AddRange``1">
+            <summary>
+            Adds a group of endpoints to the router.
+            </summary>
+            <typeparam name="TGroupEndpoints">The type of the group of endpoints to add.</typeparam>
+        </member>
+        <member name="M:ExpressNet.Application.RunAsync(System.String)">
+            <summary>
+            Runs the application asynchronously with the specified URL.
+            </summary>
+            <param name="url">The URL to listen on.</param>
+        </member>
+        <member name="M:ExpressNet.Application.ProcessHttpRequest(ExpressNet.Configs.Configuration,ExpressNet.Ctx.Context,ExpressNet.Di.ServiceScope)">
+            <summary>
+            Processes an HTTP request asynchronously.
+            </summary>
+            <param name="configuration">The configuration settings.</param>
+            <param name="context">The context for the current request and response.</param>
+            <param name="services">The service scope for resolving dependencies.</param>
+        </member>
+        <member name="T:ExpressNet.Attributes.EndpointAttribute">
+            <summary>
+            Specifies that a class is an endpoint with a specific HTTP method and route.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Attributes.EndpointAttribute.Method">
+            <summary>
+            Gets the HTTP method for the endpoint.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Attributes.EndpointAttribute.Route">
+            <summary>
+            Gets the route for the endpoint.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Attributes.EndpointAttribute.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressNet.Attributes.EndpointAttribute"/> class with the specified HTTP method and route.
+            </summary>
+            <param name="httpMethod">The HTTP method for the endpoint (e.g., GET, POST).</param>
+            <param name="route">The route for the endpoint.</param>
+        </member>
+        <member name="T:ExpressNet.Attributes.RequireAuthenticationAttribute">
+            <summary>
+            An attribute to indicate that authentication is required for the decorated class.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Attributes.RequireAuthenticationAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressNet.Attributes.RequireAuthenticationAttribute"/> class.
+            </summary>
+        </member>
+        <member name="T:ExpressNet.Configs.Configuration">
+            <summary>
+            Represents the configuration settings for the application, server, static files, and custom configurations.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Configs.Configuration.Server">
+            <summary>
+            Gets the server configuration settings.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Configs.Configuration.Application">
+            <summary>
+            Gets the application configuration settings.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Configs.Configuration.StaticFiles">
+            <summary>
+            Gets the static files configuration settings.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Configs.Configuration.Custom">
+            <summary>
+            Gets the custom configuration settings.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Configs.Configuration.#ctor(ExpressNet.Configs.Configurator)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressNet.Configs.Configuration"/> class with the specified configurator.
+            </summary>
+            <param name="configurator">The configurator containing the configuration settings.</param>
+        </member>
+        <member name="T:ExpressNet.Configs.Configurations.ApplicationConfiguration">
+            <summary>
+            Represents the configuration settings for the application.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Configs.Configurations.ApplicationConfiguration.Name">
+            <summary>
+            Gets or sets the name of the application.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Configs.Configurations.ApplicationConfiguration.Version">
+            <summary>
+            Gets or sets the version of the application.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Configs.Configurations.ApplicationConfiguration.Author">
+            <summary>
+            Gets or sets the author of the application.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Configs.Configurations.ApplicationConfiguration.Url">
+            <summary>
+            Gets or sets the URL of the application.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Configs.Configurations.ApplicationConfiguration.Description">
+            <summary>
+            Gets or sets the description of the application.
+            </summary>
+        </member>
+        <member name="T:ExpressNet.Configs.Configurations.ServerConfiguration">
+            <summary>
+            Represents the configuration settings for the server.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Configs.Configurations.ServerConfiguration.AuthenticationScheme">
+            <summary>
+            Gets or sets the authentication scheme used by the server.
+            Default is <see cref="F:System.Net.AuthenticationSchemes.Anonymous"/>.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Configs.Configurations.ServerConfiguration.RequestQueueTimeout">
+            <summary>
+            Gets or sets the timeout for the request queue.
+            Default is 1 minute.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Configs.Configurations.ServerConfiguration.IdleConnectionTimeout">
+            <summary>
+            Gets or sets the timeout for idle connections.
+            Default is 2 minutes.
+            </summary>
+        </member>
+        <member name="T:ExpressNet.Configs.Configurations.StaticFilesConfiguration">
+            <summary>
+            Provides configuration for static files including the directory path and cache lifetime.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Configs.Configurations.StaticFilesConfiguration.Directory">
+            <summary>
+            Gets or sets the directory path where static files are located.
+            </summary>
+            <value>
+            The directory path as a string.
+            </value>
+        </member>
+        <member name="P:ExpressNet.Configs.Configurations.StaticFilesConfiguration.Lifetime">
+            <summary>
+            Gets or sets the cache lifetime for static files in seconds.
+            </summary>
+            <value>
+            The cache lifetime in seconds. Default is 3600 seconds (1 hour).
+            </value>
+        </member>
+        <member name="T:ExpressNet.Configs.Configurator">
+            <summary>
+            Provides configuration settings for the server, application, and static files.
+            </summary>
+        </member>
+        <member name="F:ExpressNet.Configs.Configurator.Server">
+            <summary>
+            Gets the server configuration settings.
+            </summary>
+        </member>
+        <member name="F:ExpressNet.Configs.Configurator.Application">
+            <summary>
+            Gets the application configuration settings.
+            </summary>
+        </member>
+        <member name="F:ExpressNet.Configs.Configurator.StaticFiles">
+            <summary>
+            Gets the static files configuration settings.
+            </summary>
+        </member>
+        <member name="F:ExpressNet.Configs.Configurator.Custom">
+            <summary>
+            Gets or sets the custom configuration settings.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Configs.Configurator.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressNet.Configs.Configurator"/> class.
+            </summary>
+        </member>
+        <member name="T:ExpressNet.Configs.Contracts.ICustomConfiguration">
+            <summary>
+            Interface for custom configuration management.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Configs.Contracts.ICustomConfiguration.Get``1(System.String)">
+            <summary>
+            Retrieves the value associated with the specified key and converts it to the specified type.
+            </summary>
+            <typeparam name="TType">The type to which the value should be converted.</typeparam>
+            <param name="key">The key of the value to retrieve.</param>
+            <returns>The value associated with the specified key, converted to the specified type.</returns>
+        </member>
+        <member name="M:ExpressNet.Configs.Contracts.ICustomConfiguration.Exists``1(System.String)">
+            <summary>
+            Checks if a value associated with the specified key exists.
+            </summary>
+            <typeparam name="TType">The type of the value to check for existence.</typeparam>
+            <param name="key">The key of the value to check for existence.</param>
+            <returns>True if the value exists, otherwise false.</returns>
+        </member>
+        <member name="T:ExpressNet.Ctx.Context">
+            <summary>
+            Represents the context for an HTTP request and response.
+            </summary>
+        </member>
+        <member name="F:ExpressNet.Ctx.Context.Configuration">
+            <summary>
+            Gets the configuration settings for the application, server, static files, and custom configurations.
+            </summary>
+        </member>
+        <member name="F:ExpressNet.Ctx.Context.Request">
+            <summary>
+            Gets the request context containing details about the HTTP request.
+            </summary>
+        </member>
+        <member name="F:ExpressNet.Ctx.Context.Response">
+            <summary>
+            Gets the response context containing details about the HTTP response.
+            </summary>
+        </member>
+        <member name="F:ExpressNet.Ctx.Context.Data">
+            <summary>
+            Gets the data context for storing and retrieving data associated with the current context.
+            </summary>
+        </member>
+        <member name="F:ExpressNet.Ctx.Context.User">
+            <summary>
+            Gets or sets the user principal associated with the current context.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Ctx.Context.#ctor(System.Net.HttpListenerContext,ExpressNet.Configs.Configuration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressNet.Ctx.Context"/> class with the specified HTTP listener context and configuration.
+            </summary>
+            <param name="context">The HTTP listener context.</param>
+            <param name="configuration">The configuration settings.</param>
+        </member>
+        <member name="M:ExpressNet.Ctx.Context.GetHttpContext">
+            <summary>
+            Gets the raw HTTP listener context.
+            </summary>
+            <returns>The raw HTTP listener context.</returns>
+        </member>
+        <member name="T:ExpressNet.Ctx.ContextData">
+            <summary>
+            Represents a thread-safe context data storage.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextData.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressNet.Ctx.ContextData"/> class.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextData.Get``1(System.String)">
+            <summary>
+            Gets the value associated with the specified key.
+            </summary>
+            <typeparam name="T">The type of the value.</typeparam>
+            <param name="key">The key of the value to get.</param>
+            <returns>The value associated with the specified key.</returns>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">Thrown when the key is not found in the context data.</exception>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextData.Set``1(System.String,``0)">
+            <summary>
+            Sets the value associated with the specified key.
+            </summary>
+            <typeparam name="T">The type of the value.</typeparam>
+            <param name="key">The key of the value to set.</param>
+            <param name="value">The value to set.</param>
+            <returns><c>true</c> if the value was added successfully; otherwise, <c>false</c>.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when the value is null.</exception>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextData.Delete(System.String)">
+            <summary>
+            Deletes the value associated with the specified key.
+            </summary>
+            <param name="key">The key of the value to delete.</param>
+            <returns><c>true</c> if the value was removed successfully; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextData.Exists(System.String)">
+            <summary>
+            Determines whether the context data contains the specified key.
+            </summary>
+            <param name="key">The key to locate in the context data.</param>
+            <returns><c>true</c> if the context data contains an element with the specified key; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextData.Count">
+            <summary>
+            Gets the number of key/value pairs contained in the context data.
+            </summary>
+            <returns>The number of key/value pairs contained in the context data.</returns>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextData.Clear">
+            <summary>
+            Removes all keys and values from the context data.
+            </summary>
+        </member>
+        <member name="T:ExpressNet.Ctx.ContextParams">
+            <summary>
+            Represents a thread-safe collection of context parameters.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextParams.#ctor(System.Collections.Concurrent.ConcurrentDictionary{System.String,System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressNet.Ctx.ContextParams"/> class with the specified parameters.
+            </summary>
+            <param name="parameters">A collection of key-value pairs to initialize the context parameters.</param>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextParams.Get``1(System.String)">
+            <summary>
+            Gets the value associated with the specified key.
+            </summary>
+            <typeparam name="T">The type of the value to get.</typeparam>
+            <param name="key">The key of the value to get.</param>
+            <returns>The value associated with the specified key.</returns>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">Thrown when the specified key is not found in the context parameters.</exception>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextParams.Count">
+            <summary>
+            Gets the number of key-value pairs contained in the context parameters.
+            </summary>
+            <returns>The number of key-value pairs contained in the context parameters.</returns>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextParams.Exists(System.String)">
+            <summary>
+            Determines whether the context parameters contain the specified key.
+            </summary>
+            <param name="key">The key to locate in the context parameters.</param>
+            <returns><c>true</c> if the context parameters contain an element with the specified key; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="T:ExpressNet.Ctx.ContextQuery">
+            <summary>
+            Represents a query context that stores key-value pairs parsed from a query string.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextQuery.#ctor(System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressNet.Ctx.ContextQuery"/> class with the specified query string.
+            </summary>
+            <param name="queryString">The query string to parse and store in the context.</param>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextQuery.Get``1(System.String)">
+            <summary>
+            Gets the value associated with the specified key and converts it to the specified type.
+            </summary>
+            <typeparam name="T">The type to convert the value to.</typeparam>
+            <param name="key">The key of the value to get.</param>
+            <returns>The value associated with the specified key, converted to the specified type.</returns>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">Thrown when the specified key is not found in the context query.</exception>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextQuery.Exists(System.String)">
+            <summary>
+            Determines whether the context query contains the specified key.
+            </summary>
+            <param name="key">The key to locate in the context query.</param>
+            <returns><c>true</c> if the context query contains an element with the specified key; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextQuery.Count">
+            <summary>
+            Gets the number of key-value pairs contained in the context query.
+            </summary>
+            <returns>The number of key-value pairs contained in the context query.</returns>
+        </member>
+        <member name="T:ExpressNet.Ctx.ContextRequest">
+            <summary>
+            Represents an HTTP request context, providing access to various request properties and methods for reading the request body.
+            </summary>
+        </member>
+        <member name="F:ExpressNet.Ctx.ContextRequest.Params">
+            <summary>
+            Gets or sets the context parameters.
+            </summary>
+        </member>
+        <member name="F:ExpressNet.Ctx.ContextRequest.Query">
+            <summary>
+            Gets the query context.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Ctx.ContextRequest.HttpMethod">
+            <summary>
+            Gets the HTTP method specified by the client.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Ctx.ContextRequest.UserAgent">
+            <summary>
+            Gets the user agent presented by the client.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Ctx.ContextRequest.QueryString">
+            <summary>
+            Gets the collection of query string variables.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Ctx.ContextRequest.ContentType">
+            <summary>
+            Gets the MIME type of the body data included in the request.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Ctx.ContextRequest.ContentLength64">
+            <summary>
+            Gets the length of the body data included in the request.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Ctx.ContextRequest.IsSecureConnection">
+            <summary>
+            Gets a value indicating whether the TCP connection used to send the request is using SSL.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Ctx.ContextRequest.IsWebSocketRequest">
+            <summary>
+            Gets a value indicating whether the request is a WebSocket request.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Ctx.ContextRequest.KeepAlive">
+            <summary>
+            Gets a value indicating whether the client requests a persistent connection.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Ctx.ContextRequest.IsLocal">
+            <summary>
+            Gets a value indicating whether the request is sent from the local computer.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Ctx.ContextRequest.IsAuthenticated">
+            <summary>
+            Gets a value indicating whether the client is authenticated.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Ctx.ContextRequest.HasEntityBody">
+            <summary>
+            Gets a value indicating whether the request has associated body data.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Ctx.ContextRequest.ProtocolVersion">
+            <summary>
+            Gets the HTTP version used by the client.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Ctx.ContextRequest.Url">
+            <summary>
+            Gets the URL requested by the client.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Ctx.ContextRequest.RawUrl">
+            <summary>
+            Gets the raw URL requested by the client.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Ctx.ContextRequest.Referrer">
+            <summary>
+            Gets the URL of the resource that referred the client to the server.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Ctx.ContextRequest.UserHostname">
+            <summary>
+            Gets the DNS name and, if provided, the port number specified by the client.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Ctx.ContextRequest.UserHostAddress">
+            <summary>
+            Gets the IP address and port number from which the request originated.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Ctx.ContextRequest.UserLanguages">
+            <summary>
+            Gets the natural languages that are preferred for the response.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Ctx.ContextRequest.ClientCertificate">
+            <summary>
+            Gets the client's X.509 v.3 certificate.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Ctx.ContextRequest.Headers">
+            <summary>
+            Gets the collection of header name/value pairs.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Ctx.ContextRequest.Cookies">
+            <summary>
+            Gets the collection of cookies sent with the request.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Ctx.ContextRequest.AcceptTypes">
+            <summary>
+            Gets the MIME types accepted by the client.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Ctx.ContextRequest.ClientCertificateError">
+            <summary>
+            Gets the error code returned when a client certificate is invalid.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Ctx.ContextRequest.ContentEncoding">
+            <summary>
+            Gets the encoding that the client uses for the body data.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Ctx.ContextRequest.LocalEndPoint">
+            <summary>
+            Gets the local endpoint to which the request is directed.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Ctx.ContextRequest.RemoteEndPoint">
+            <summary>
+            Gets the remote endpoint from which the request originated.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Ctx.ContextRequest.ServiceName">
+            <summary>
+            Gets the service name requested by the client.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Ctx.ContextRequest.TransportContext">
+            <summary>
+            Gets the transport context for the request.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Ctx.ContextRequest.RequestTraceIdentifier">
+            <summary>
+            Gets the unique identifier for the request.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextRequest.#ctor(System.Net.HttpListenerRequest)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressNet.Ctx.ContextRequest"/> class with the specified HTTP listener request.
+            </summary>
+            <param name="request">The HTTP listener request.</param>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextRequest.HasAcceptsType(System.String)">
+            <summary>
+            Determines whether the request accepts the specified MIME type.
+            </summary>
+            <param name="type">The MIME type to check.</param>
+            <returns><c>true</c> if the request accepts the specified MIME type; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextRequest.HasUserLanguage(System.String)">
+            <summary>
+            Determines whether the request accepts the specified user language.
+            </summary>
+            <param name="language">The user language to check.</param>
+            <returns><c>true</c> if the request accepts the specified user language; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextRequest.GetHeader(System.String)">
+            <summary>
+            Gets the value of the specified header.
+            </summary>
+            <param name="headerName">The name of the header.</param>
+            <returns>The value of the specified header.</returns>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextRequest.GetCookie(System.String)">
+            <summary>
+            Gets the cookie with the specified name.
+            </summary>
+            <param name="cookieName">The name of the cookie.</param>
+            <returns>The cookie with the specified name.</returns>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextRequest.ReadBodyAsTextAsync">
+            <summary>
+            Reads the request body as a text string asynchronously.
+            </summary>
+            <returns>The request body as a text string.</returns>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextRequest.ReadBodyAsHtmlAsync">
+            <summary>
+            Reads the request body as an HTML string asynchronously.
+            </summary>
+            <returns>The request body as an HTML string.</returns>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextRequest.ReadBodyAsJsonAsync``1">
+            <summary>
+            Reads the request body as a JSON object asynchronously.
+            </summary>
+            <typeparam name="T">The type of the JSON object.</typeparam>
+            <returns>The request body as a JSON object.</returns>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextRequest.ReadBodyAsXmlAsync``1">
+            <summary>
+            Reads the request body as an XML object asynchronously.
+            </summary>
+            <typeparam name="T">The type of the XML object.</typeparam>
+            <returns>The request body as an XML object.</returns>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextRequest.ReadBodyOnceAsBinaryAsync">
+            <summary>
+            Reads the request body as a binary array asynchronously.
+            </summary>
+            <returns>The request body as a binary array.</returns>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextRequest.ReadOnceUploadedFileAsync(System.String)">
+            <summary>
+            Reads the uploaded file from the request and saves it to the specified file path asynchronously.
+            </summary>
+            <param name="filePath">The file path to save the uploaded file.</param>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextRequest.ReadOnceUploadedFilesAsync(System.Func{System.String,System.Threading.Tasks.Task})">
+            <summary>
+            Reads the uploaded files from the request and processes each file using the specified function asynchronously.
+            </summary>
+            <param name="processFile">The function to process each uploaded file.</param>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextRequest.GetBoundary(System.String)">
+            <summary>
+            Gets the boundary from the content type.
+            </summary>
+            <param name="contentType">The content type.</param>
+            <returns>The boundary string.</returns>
+        </member>
+        <member name="T:ExpressNet.Ctx.ContextResponse">
+            <summary>
+            Represents a wrapper for the HttpListenerResponse to provide various response functionalities.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Ctx.ContextResponse.ContentLength">
+            <summary>
+            Gets the content length of the response.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Ctx.ContextResponse.OutputStream">
+            <summary>
+            Gets the output stream to write the response.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextResponse.#ctor(System.Net.HttpListenerResponse)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressNet.Ctx.ContextResponse"/> class.
+            </summary>
+            <param name="response">The HttpListenerResponse to wrap.</param>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextResponse.SendChunked(System.Boolean)">
+            <summary>
+            Sets a value indicating whether the response uses chunked transfer encoding.
+            </summary>
+            <param name="sendChunked">True to use chunked transfer encoding; otherwise, false.</param>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextResponse.KeepAlive(System.Boolean)">
+            <summary>
+            Sets a value indicating whether the connection should be kept alive.
+            </summary>
+            <param name="keepAlive">True to keep the connection alive; otherwise, false.</param>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextResponse.SetContentEncoding(System.Text.Encoding)">
+            <summary>
+            Sets the content encoding for the response.
+            </summary>
+            <param name="encodingType">The encoding type to set.</param>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextResponse.SetContentLength64(System.Int64)">
+            <summary>
+            Sets the content length of the response.
+            </summary>
+            <param name="bytes">The content length in bytes.</param>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextResponse.SetContentType(System.String)">
+            <summary>
+            Sets the content type of the response.
+            </summary>
+            <param name="mimeType">The MIME type to set.</param>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextResponse.SetStatusCode(System.Int32)">
+            <summary>
+            Sets the status code of the response.
+            </summary>
+            <param name="statusCode">The status code to set.</param>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextResponse.SetRedirect(System.String)">
+            <summary>
+            Redirects the client to the specified URL.
+            </summary>
+            <param name="url">The URL to redirect to.</param>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextResponse.Abort">
+            <summary>
+            Aborts the response.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextResponse.AddHeader(System.String,System.String)">
+            <summary>
+            Adds a header to the response.
+            </summary>
+            <param name="name">The name of the header.</param>
+            <param name="value">The value of the header.</param>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextResponse.AppendHeader(System.String,System.String)">
+            <summary>
+            Appends a header to the response.
+            </summary>
+            <param name="name">The name of the header.</param>
+            <param name="value">The value of the header.</param>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextResponse.AppendCookie(System.Net.Cookie)">
+            <summary>
+            Appends a cookie to the response.
+            </summary>
+            <param name="cookie">The cookie to append.</param>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextResponse.SetCookie(System.Net.Cookie)">
+            <summary>
+            Sets a cookie in the response.
+            </summary>
+            <param name="cookie">The cookie to set.</param>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextResponse.Close">
+            <summary>
+            Closes the response.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextResponse.WriteAsTextAsync(System.String)">
+            <summary>
+            Writes the specified content as plain text to the response asynchronously.
+            </summary>
+            <param name="content">The content to write.</param>
+            <returns>A task that represents the asynchronous write operation.</returns>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextResponse.WriteAsHtmlAsync(System.String)">
+            <summary>
+            Writes the specified content as HTML to the response asynchronously.
+            </summary>
+            <param name="content">The content to write.</param>
+            <returns>A task that represents the asynchronous write operation.</returns>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextResponse.WriteAsJsonAsync``1(``0)">
+            <summary>
+            Writes the specified content as JSON to the response asynchronously.
+            </summary>
+            <typeparam name="T">The type of the content.</typeparam>
+            <param name="content">The content to write.</param>
+            <returns>A task that represents the asynchronous write operation.</returns>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextResponse.WriteAsXmlAsync``1(``0)">
+            <summary>
+            Writes the specified content as XML to the response asynchronously.
+            </summary>
+            <typeparam name="T">The type of the content.</typeparam>
+            <param name="content">The content to write.</param>
+            <returns>A task that represents the asynchronous write operation.</returns>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextResponse.WriteAsBinaryAsync(System.Byte[])">
+            <summary>
+            Writes the specified binary content to the response asynchronously.
+            </summary>
+            <param name="content">The binary content to write.</param>
+            <returns>A task that represents the asynchronous write operation.</returns>
+        </member>
+        <member name="M:ExpressNet.Ctx.ContextResponse.DownloadFileAsync(System.String)">
+            <summary>
+            Sends a file to the client as a download asynchronously.
+            </summary>
+            <param name="filePath">The path of the file to download.</param>
+            <returns>A task that represents the asynchronous download operation.</returns>
+        </member>
+        <member name="T:ExpressNet.Di.ServiceDescriptor">
+            <summary>
+            Represents a descriptor for a service, containing information about the service type, factory method, lifetime, and instance.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Di.ServiceDescriptor.ServiceType">
+            <summary>
+            Gets the type of the service.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Di.ServiceDescriptor.Factory">
+            <summary>
+            Gets the factory method used to create the service instance.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Di.ServiceDescriptor.Lifetime">
+            <summary>
+            Gets the lifetime of the service.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Di.ServiceDescriptor.Instance">
+            <summary>
+            Gets or sets the instance of the service.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Di.ServiceDescriptor.#ctor(System.Type,System.Func{ExpressNet.Di.Services,System.Object},ExpressNet.Di.ServiceLifetime)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressNet.Di.ServiceDescriptor"/> class.
+            </summary>
+            <param name="serviceType">The type of the service.</param>
+            <param name="factory">The factory method used to create the service instance.</param>
+            <param name="lifetime">The lifetime of the service.</param>
+        </member>
+        <member name="T:ExpressNet.Di.ServiceLifetime">
+            <summary>
+            Specifies the lifetime of a service in the dependency injection container.
+            </summary>
+        </member>
+        <member name="F:ExpressNet.Di.ServiceLifetime.Singleton">
+            <summary>
+            A single instance is created and shared throughout the application's lifetime.
+            </summary>
+        </member>
+        <member name="F:ExpressNet.Di.ServiceLifetime.Transient">
+            <summary>
+            A new instance is created each time the service is requested.
+            </summary>
+        </member>
+        <member name="F:ExpressNet.Di.ServiceLifetime.Scoped">
+            <summary>
+            A new instance is created for each scope. Typically, a scope is created per request.
+            </summary>
+        </member>
+        <member name="T:ExpressNet.Di.Services">
+            <summary>
+            Represents a collection of services for dependency injection.
+            </summary>
+        </member>
+        <member name="F:ExpressNet.Di.Services._services">
+            <summary>
+            A dictionary that holds the registered services and their descriptors.
+            </summary>
+        </member>
+        <member name="F:ExpressNet.Di.Services._scopedInstances">
+            <summary>
+            A dictionary that holds the scoped instances of services.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Di.Services.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressNet.Di.Services"/> class.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Di.Services.Register``1(System.Func{ExpressNet.Di.Services,``0},ExpressNet.Di.ServiceLifetime)">
+            <summary>
+            Registers a service with the specified factory method and lifetime.
+            </summary>
+            <typeparam name="TService">The type of the service to register.</typeparam>
+            <param name="factory">The factory method used to create the service instance.</param>
+            <param name="lifetime">The lifetime of the service.</param>
+        </member>
+        <member name="M:ExpressNet.Di.Services.Resolve``1">
+            <summary>
+            Resolves an instance of the specified service type.
+            </summary>
+            <typeparam name="TService">The type of the service to resolve.</typeparam>
+            <returns>An instance of the specified service type.</returns>
+        </member>
+        <member name="M:ExpressNet.Di.Services.Resolve(System.Type)">
+            <summary>
+            Resolves an instance of the specified service type.
+            </summary>
+            <param name="serviceType">The type of the service to resolve.</param>
+            <returns>An instance of the specified service type.</returns>
+            <exception cref="T:System.InvalidOperationException">Thrown when the service type is not registered.</exception>
+        </member>
+        <member name="M:ExpressNet.Di.Services.CreateScope">
+            <summary>
+            Creates a new scope for resolving scoped services.
+            </summary>
+            <returns>A new instance of <see cref="T:ExpressNet.Di.ServiceScope"/>.</returns>
+        </member>
+        <member name="T:ExpressNet.Di.ServiceScope">
+            <summary>
+            Represents a scope for resolving scoped services in a dependency injection container.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Di.ServiceScope.#ctor(ExpressNet.Di.Services)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressNet.Di.ServiceScope"/> class.
+            </summary>
+            <param name="rootServices">The root services collection.</param>
+        </member>
+        <member name="M:ExpressNet.Di.ServiceScope.Resolve``1">
+            <summary>
+            Resolves an instance of the specified service type.
+            </summary>
+            <typeparam name="TService">The type of the service to resolve.</typeparam>
+            <returns>An instance of the specified service type.</returns>
+        </member>
+        <member name="M:ExpressNet.Di.ServiceScope.Resolve(System.Type)">
+            <summary>
+            Resolves an instance of the specified service type.
+            </summary>
+            <param name="serviceType">The type of the service to resolve.</param>
+            <returns>An instance of the specified service type.</returns>
+            <exception cref="T:System.InvalidOperationException">Thrown when the service type is not registered.</exception>
+        </member>
+        <member name="M:ExpressNet.Di.ServiceScope.Dispose">
+            <summary>
+            Disposes the scope and clears all scoped instances.
+            </summary>
+        </member>
+        <member name="T:ExpressNet.Flow.Abstractions.ChainHandler`1">
+            <summary>
+            Represents an abstract base class for a handler in a chain of responsibility pattern.
+            </summary>
+            <typeparam name="Context">The type of the context.</typeparam>
+        </member>
+        <member name="M:ExpressNet.Flow.Abstractions.ChainHandler`1.SetNext(ExpressNet.Flow.Contracts.IChainHandler{`0})">
+            <summary>
+            Sets the next handler in the chain.
+            </summary>
+            <param name="nextHandler">The next handler.</param>
+        </member>
+        <member name="M:ExpressNet.Flow.Abstractions.ChainHandler`1.HandleAsync(`0)">
+            <summary>
+            Handles the context asynchronously. If there is a next handler, it delegates the handling to the next handler.
+            </summary>
+            <param name="context">The context to handle.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="T:ExpressNet.Flow.Chain">
+            <summary>
+            Represents a chain of responsibility pattern for handling HTTP request and response contexts.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Flow.Chain.SetNext``1(``0)">
+            <summary>
+            Sets the next handler in the chain.
+            </summary>
+            <typeparam name="TChain">The type of the handler.</typeparam>
+            <param name="handler">The handler to set as the next in the chain.</param>
+        </member>
+        <member name="M:ExpressNet.Flow.Chain.SetNext``1">
+            <summary>
+            Sets the next handler in the chain by creating a new instance of the specified handler type.
+            </summary>
+            <typeparam name="TChain">The type of the handler.</typeparam>
+        </member>
+        <member name="M:ExpressNet.Flow.Chain.ExecuteAsync(ExpressNet.Ctx.Context)">
+            <summary>
+            Executes the chain of handlers asynchronously.
+            </summary>
+            <param name="context">The context to handle.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="T:ExpressNet.Flow.Contracts.IChainHandler`1">
+            <summary>
+            Defines a handler in a chain of responsibility pattern.
+            </summary>
+            <typeparam name="Context">The type of the context.</typeparam>
+        </member>
+        <member name="M:ExpressNet.Flow.Contracts.IChainHandler`1.SetNext(ExpressNet.Flow.Contracts.IChainHandler{`0})">
+            <summary>
+            Sets the next handler in the chain.
+            </summary>
+            <param name="nextHandler">The next handler.</param>
+        </member>
+        <member name="M:ExpressNet.Flow.Contracts.IChainHandler`1.HandleAsync(`0)">
+            <summary>
+            Handles the context asynchronously.
+            </summary>
+            <param name="context">The context to handle.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="T:ExpressNet.Flow.Handlers.AuthenticationHandler">
+            <summary>
+            Handles authentication for a specific endpoint in the chain of responsibility pattern.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Flow.Handlers.AuthenticationHandler.#ctor(System.Type,ExpressNet.Di.ServiceScope)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressNet.Flow.Handlers.AuthenticationHandler"/> class.
+            </summary>
+            <param name="endpoint">The endpoint type to check for authentication requirements.</param>
+            <param name="services">The service scope for resolving dependencies.</param>
+        </member>
+        <member name="M:ExpressNet.Flow.Handlers.AuthenticationHandler.HandleAsync(ExpressNet.Ctx.Context)">
+            <summary>
+            Handles the context asynchronously, checking for authentication requirements.
+            </summary>
+            <param name="context">The context to handle.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="T:ExpressNet.Flow.Handlers.EndpointHandler">
+            <summary>
+            Represents a handler for an endpoint in a chain of responsibility pattern.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Flow.Handlers.EndpointHandler.#ctor(System.Type,ExpressNet.Di.ServiceScope)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressNet.Flow.Handlers.EndpointHandler"/> class with the specified endpoint type and service scope.
+            </summary>
+            <param name="endpoint">The type of the endpoint to handle.</param>
+            <param name="services">The service scope for resolving dependencies.</param>
+        </member>
+        <member name="M:ExpressNet.Flow.Handlers.EndpointHandler.HandleAsync(ExpressNet.Ctx.Context)">
+            <summary>
+            Handles the context asynchronously by creating an instance of the endpoint and invoking its handle method.
+            </summary>
+            <param name="context">The context to handle.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when the endpoint instance cannot be created.</exception>
+        </member>
+        <member name="T:ExpressNet.Flow.Handlers.MiddlewareHandler">
+            <summary>
+            Handles the execution of middleware in a pipeline.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Flow.Handlers.MiddlewareHandler.#ctor(ExpressNet.Middlewares.Pipeline,ExpressNet.Di.ServiceScope)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressNet.Flow.Handlers.MiddlewareHandler"/> class with the specified pipeline and service scope.
+            </summary>
+            <param name="pipeline">The pipeline to execute middleware.</param>
+            <param name="services">The service scope for resolving dependencies.</param>
+        </member>
+        <member name="M:ExpressNet.Flow.Handlers.MiddlewareHandler.HandleAsync(ExpressNet.Ctx.Context)">
+            <summary>
+            Handles the context by invoking the middleware pipeline asynchronously.
+            </summary>
+            <param name="context">The context to handle.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="T:ExpressNet.Flow.Handlers.NullEndpointHandler">
+            <summary>
+            Represents a handler that processes requests with a null endpoint.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Flow.Handlers.NullEndpointHandler.#ctor(System.Type)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressNet.Flow.Handlers.NullEndpointHandler"/> class with the specified endpoint type.
+            </summary>
+            <param name="endpoint">The endpoint type.</param>
+        </member>
+        <member name="M:ExpressNet.Flow.Handlers.NullEndpointHandler.HandleAsync(ExpressNet.Ctx.Context)">
+            <summary>
+            Handles the context asynchronously. If the endpoint is null, sets the response status code to 404 and writes "Not Found" to the response.
+            Otherwise, delegates the handling to the next handler in the chain.
+            </summary>
+            <param name="context">The context to handle.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="T:ExpressNet.Flow.Handlers.StaticFilesHandler">
+            <summary>
+            Handles the serving of static files in the application.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Flow.Handlers.StaticFilesHandler.#ctor(ExpressNet.Configs.Configuration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressNet.Flow.Handlers.StaticFilesHandler"/> class with the specified configuration.
+            </summary>
+            <param name="configuration">The configuration settings.</param>
+        </member>
+        <member name="M:ExpressNet.Flow.Handlers.StaticFilesHandler.GetContentType(System.String)">
+            <summary>
+            Gets the content type based on the file extension.
+            </summary>
+            <param name="path">The file path.</param>
+            <returns>The content type as a string.</returns>
+        </member>
+        <member name="M:ExpressNet.Flow.Handlers.StaticFilesHandler.GetFilePath(System.String)">
+            <summary>
+            Gets the full file path based on the URL path.
+            </summary>
+            <param name="urlPath">The URL path.</param>
+            <returns>The full file path as a string.</returns>
+            <exception cref="T:System.UnauthorizedAccessException">Thrown when the file path is outside the static files directory.</exception>
+        </member>
+        <member name="M:ExpressNet.Flow.Handlers.StaticFilesHandler.HandleAsync(ExpressNet.Ctx.Context)">
+            <summary>
+            Handles the context asynchronously by serving static files if available, otherwise delegates to the next handler.
+            </summary>
+            <param name="context">The context to handle.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="T:ExpressNet.Http.Server">
+            <summary>
+            Represents an HTTP server that listens for incoming HTTP requests.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Http.Server.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressNet.Http.Server"/> class.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Http.Server.Start">
+            <summary>
+            Starts the HTTP server.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">Thrown when the server is already started.</exception>
+        </member>
+        <member name="M:ExpressNet.Http.Server.AddPrefix(System.String)">
+            <summary>
+            Adds a URL prefix that the server should respond to.
+            </summary>
+            <param name="url">The URL prefix to add.</param>
+            <exception cref="T:System.InvalidOperationException">Thrown when the server is running.</exception>
+        </member>
+        <member name="M:ExpressNet.Http.Server.Abort">
+            <summary>
+            Aborts the server, causing it to stop immediately.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Http.Server.Stop">
+            <summary>
+            Stops the server.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">Thrown when the server is not started.</exception>
+        </member>
+        <member name="M:ExpressNet.Http.Server.Close">
+            <summary>
+            Closes the server, releasing all resources.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Http.Server.Configure(ExpressNet.Configs.Configurations.ServerConfiguration)">
+            <summary>
+            Configures the server with the specified settings.
+            </summary>
+            <param name="configuration">The configuration settings to apply.</param>
+            <exception cref="T:System.InvalidOperationException">Thrown when the server is running.</exception>
+        </member>
+        <member name="M:ExpressNet.Http.Server.GetContextAsync">
+            <summary>
+            Asynchronously gets the context for an incoming request.
+            </summary>
+            <returns>A task that represents the asynchronous operation. The task result contains the context for the incoming request.</returns>
+            <exception cref="T:System.InvalidOperationException">Thrown when the server is not started.</exception>
+        </member>
+        <member name="T:ExpressNet.Middlewares.Contracts.IMiddleware">
+            <summary>
+            Defines a middleware component that can be used to handle HTTP requests and responses.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Middlewares.Contracts.IMiddleware.InvokeAsync(ExpressNet.Ctx.Context,System.Func{ExpressNet.Ctx.Context,System.Threading.Tasks.Task})">
+            <summary>
+            Invokes the middleware with the given context and the next middleware in the pipeline.
+            </summary>
+            <param name="context">The context for the current HTTP request and response.</param>
+            <param name="next">A function that invokes the next middleware in the pipeline.</param>
+            <returns>A task that represents the completion of the middleware execution.</returns>
+        </member>
+        <member name="T:ExpressNet.Middlewares.Pipeline">
+            <summary>
+            Represents a pipeline for managing and invoking middleware components.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Middlewares.Pipeline.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressNet.Middlewares.Pipeline"/> class.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Middlewares.Pipeline.Use``1">
+            <summary>
+            Adds a middleware type to the pipeline.
+            </summary>
+            <typeparam name="TMiddleware">The type of the middleware to add.</typeparam>
+        </member>
+        <member name="M:ExpressNet.Middlewares.Pipeline.Use(System.Type)">
+            <summary>
+            Adds a middleware type to the pipeline.
+            </summary>
+            <param name="middlewareType">The type of the middleware to add.</param>
+        </member>
+        <member name="M:ExpressNet.Middlewares.Pipeline.InvokeMiddlewareAsync(System.Int32,ExpressNet.Ctx.Context,ExpressNet.Di.ServiceScope)">
+            <summary>
+            Invokes the middleware at the specified index asynchronously.
+            </summary>
+            <param name="index">The index of the middleware to invoke.</param>
+            <param name="context">The context for the current request and response.</param>
+            <param name="services">The service scope for resolving dependencies.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="T:ExpressNet.Routing.Contracts.IEndpoint">
+            <summary>
+            Represents an endpoint that handles HTTP requests asynchronously.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Routing.Contracts.IEndpoint.HandleAsync(ExpressNet.Ctx.Context)">
+            <summary>
+            Handles the HTTP request asynchronously.
+            </summary>
+            <param name="context">The context for the HTTP request and response.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="T:ExpressNet.Routing.Contracts.IGroupEndpoints">
+            <summary>
+            Defines a contract for a group of endpoints that can be added to a router.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Routing.Contracts.IGroupEndpoints.AddEndpoints(ExpressNet.Routing.Router)">
+            <summary>
+            Adds the endpoints defined by the implementing class to the specified router.
+            </summary>
+            <param name="router">The router to which the endpoints will be added.</param>
+        </member>
+        <member name="T:ExpressNet.Routing.Router">
+            <summary>
+            Represents a router that handles the registration and matching of routes to endpoints.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Routing.Router.AddRoute(System.String,System.Type)">
+            <summary>
+            Adds a route to the router with the specified route template and handler type.
+            </summary>
+            <param name="routeTemplate">The route template to add.</param>
+            <param name="handler">The handler type for the route.</param>
+        </member>
+        <member name="M:ExpressNet.Routing.Router.Add``1">
+            <summary>
+            Adds an endpoint to the router.
+            </summary>
+            <typeparam name="TEndpoint">The type of the endpoint to add.</typeparam>
+        </member>
+        <member name="M:ExpressNet.Routing.Router.ParseSegment(System.String)">
+            <summary>
+            Parses a route segment and returns the segment and its parameter, if any.
+            </summary>
+            <param name="segment">The route segment to parse.</param>
+            <returns>A tuple containing the segment and its parameter, if any.</returns>
+        </member>
+        <member name="M:ExpressNet.Routing.Router.GetSegments(System.String)">
+            <summary>
+            Splits a URL path into segments.
+            </summary>
+            <param name="urlPath">The URL path to split.</param>
+            <returns>An array of segments.</returns>
+        </member>
+        <member name="M:ExpressNet.Routing.Router.MatchEndpoint(ExpressNet.Ctx.Context)">
+            <summary>
+            Matches an endpoint based on the context.
+            </summary>
+            <param name="context">The context containing the request information.</param>
+            <returns>The matched endpoint type, or null if no match is found.</returns>
+        </member>
+        <member name="M:ExpressNet.Routing.Router.FindMatchingChild(ExpressNet.Routing.Router.RouteNode,System.String)">
+            <summary>
+            Finds a matching child node for a given segment.
+            </summary>
+            <param name="parent">The parent node to search within.</param>
+            <param name="segment">The segment to match.</param>
+            <returns>The matching child node, or null if no match is found.</returns>
+        </member>
+        <member name="T:ExpressNet.Routing.Router.RouteNode">
+            <summary>
+            Represents a node in the route tree.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Routing.Router.RouteNode.Segment">
+            <summary>
+            Gets or sets the segment of the route.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Routing.Router.RouteNode.Parameter">
+            <summary>
+            Gets or sets the parameter associated with the segment, if any.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Routing.Router.RouteNode.Children">
+            <summary>
+            Gets the children of the node.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Routing.Router.RouteNode.Endpoint">
+            <summary>
+            Gets or sets the endpoint associated with the node.
+            </summary>
+        </member>
+        <member name="T:ExpressNet.Routing.Router.RouteParameter">
+            <summary>
+            Represents a parameter in a route segment.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Routing.Router.RouteParameter.Name">
+            <summary>
+            Gets or sets the name of the parameter.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Routing.Router.RouteParameter.Type">
+            <summary>
+            Gets or sets the type of the parameter.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Routing.Router.RouteParameter.Convert(System.String)">
+            <summary>
+            Converts a string value to the parameter's type.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <returns>The converted value, or null if the conversion fails.</returns>
+        </member>
+        <member name="T:ExpressNet.Security.DefaultIdentity">
+            <summary>
+            Represents the default implementation of the <see cref="T:System.Security.Principal.IIdentity"/> interface.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Security.DefaultIdentity.AuthenticationType">
+            <summary>
+            Gets the type of authentication used.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Security.DefaultIdentity.IsAuthenticated">
+            <summary>
+            Gets a value indicating whether the user has been authenticated.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Security.DefaultIdentity.Name">
+            <summary>
+            Gets the name of the user.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Security.DefaultIdentity.#ctor(System.String,System.String,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressNet.Security.DefaultIdentity"/> class with the specified authentication type, user name, and authentication status.
+            </summary>
+            <param name="authenticationType">The type of authentication used.</param>
+            <param name="name">The name of the user.</param>
+            <param name="isAuthenticated">A value indicating whether the user has been authenticated.</param>
+        </member>
+        <member name="T:ExpressNet.Security.DefaultPrincipal">
+            <summary>
+            Represents the default implementation of the <see cref="T:System.Security.Principal.IPrincipal"/> interface.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Security.DefaultPrincipal.Identity">
+            <summary>
+            Gets the identity of the current principal.
+            </summary>
+        </member>
+        <member name="P:ExpressNet.Security.DefaultPrincipal.Roles">
+            <summary>
+            Gets the roles associated with the current principal.
+            </summary>
+        </member>
+        <member name="M:ExpressNet.Security.DefaultPrincipal.#ctor(System.Security.Principal.IIdentity,System.String[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:ExpressNet.Security.DefaultPrincipal"/> class with the specified identity and optional roles.
+            </summary>
+            <param name="identity">The identity of the principal.</param>
+            <param name="roles">The roles associated with the principal. Default is null.</param>
+        </member>
+        <member name="M:ExpressNet.Security.DefaultPrincipal.IsInRole(System.String)">
+            <summary>
+            Determines whether the current principal belongs to the specified role.
+            </summary>
+            <param name="role">The name of the role to check.</param>
+            <returns><c>true</c> if the current principal is a member of the specified role; otherwise, <c>false</c>.</returns>
+        </member>
+    </members>
+</doc>
