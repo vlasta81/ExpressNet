@@ -11,7 +11,7 @@ ExpressNet is a simple web framework for .NET 9 that enables easy creation of we
 
 ## Download
 
-The current library can be downloaded here: **[DOWNLOAD](https://github.com/vlasta81/ExpressNet/blob/master/ExpressNet/README-EN.md)**
+The current library can be downloaded here: **[DOWNLOAD](https://github.com/vlasta81/ExpressNet/releases)**
 
 ## Installation
 
